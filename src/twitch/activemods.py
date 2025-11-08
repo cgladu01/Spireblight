@@ -1,5 +1,5 @@
-from src.trie import Trie
-from src.utils import edit_distance
+from src.util.trie import Trie
+from src.util.utils import edit_distance
 
 ACTIVEMODS_KEY = "activemods:active_mods"
 

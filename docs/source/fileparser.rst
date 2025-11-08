@@ -1,7 +1,7 @@
 Slay the Spire run information
 ==============================
 
-.. module:: src.gamedata
+.. module:: src.spire.gamedata
    :noindex:
 
 .. autoclass:: FileParser
@@ -25,7 +25,7 @@ Slay the Spire run information
 
 .. autofunction:: get_savefile
 
-.. module:: src.runs
+.. module:: src.spire.runs
 
 .. autoclass:: RunParser
    :members:

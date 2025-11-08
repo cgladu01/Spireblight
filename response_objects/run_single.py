@@ -1,7 +1,7 @@
 from __future__ import annotations
 from src.cache.cache_helpers import RunLinkedListNode
 
-from src.gamedata import FileParser
+from src.spire.gamedata import FileParser
 from typing import TYPE_CHECKING
 
 class RunResponse:

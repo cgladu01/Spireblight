@@ -1,7 +1,7 @@
 nameinternal module
 ===================
 
-.. automodule:: src.nameinternal
+.. automodule:: src.spire.nameinternal
    :members:
    :show-inheritance:
    :undoc-members:

@@ -12,8 +12,8 @@ from abc import ABC, abstractmethod
 
 from aiohttp.web import Request, Response, HTTPForbidden, HTTPNotImplemented, HTTPNotFound
 
-from src.typehints import *
-from src.utils import format_for_slaytabase
+from src.spire.typehints import *
+from src.util.utils import format_for_slaytabase
 
 try:
     from matplotlib import pyplot as plt
@@ -25,14 +25,14 @@ try:
 except ModuleNotFoundError:
     fig_to_html = None
 
-from src.nameinternal import get_event, get_relic_stats, get_run_mod, get, get_card, Card, SingleCard, Relic, Potion
-from src.sts_profile import Profile
-from src.logger import logger
+from src.spire.nameinternal import get_event, get_relic_stats, get_run_mod, get, get_card, Card, SingleCard, Relic, Potion
+from src.spire.sts_profile import Profile
+from src.util.logger import logger
 
-from src.config import config
+from src.util.config import config
 
 if TYPE_CHECKING:
-    from src.runs import StreakInfo
+    from src.spire.runs import StreakInfo
 
 __all__ = [
     "ShopContents",
@@ -1879,7 +1879,7 @@ class NodeData(BaseNode):
     """Contain relevant information for Spire nodes.
 
     To instantiate a subclass, call the class with a :class:`FileParser` instance
-    (either :class:`src.runs.RunParser` or :class:`src.save.Savefile`) and the floor number.
+    (either :class:`src.spire.runs.RunParser` or :class:`src.save.Savefile`) and the floor number.
 
     To change behaviour, you need to subclass the relevant subclass and alter
     the behaviour there. Some features rely on objects being instances of

@@ -7,9 +7,9 @@ from pathlib import Path
 
 import json
 
-from src.config import config
-from src.events import add_listener
-from src.utils import complete_match
+from src.util.config import config
+from src.util.events import add_listener
+from src.util.utils import complete_match
 
 # this is an iterable of 1-length str to remove from queries
 _replace_str = " -'()."

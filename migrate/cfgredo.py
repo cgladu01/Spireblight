@@ -13,6 +13,7 @@ def migrate(*, automatic: bool):
         if file.name.endswith("-config.yml") and file.name != "default-config.yml": # config file
             contents = None
             with file.open() as f:
+                print (file.name)
                 contents: dict = yaml.safe_load(f)
             if not contents:
                 return False

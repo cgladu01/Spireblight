@@ -12,19 +12,19 @@ from aiohttp.web import Request, HTTPNotFound, HTTPFound, Response
 import aiohttp_jinja2
 
 from response_objects.run_single import RunResponse
-from src.nameinternal import get, get_card, Relic
-from src.sts_profile import get_current_profile
-from src.gamedata import FileParser, BottleRelic, KeysObtained, _enemies
+from src.spire.nameinternal import get, get_card, Relic
+from src.spire.sts_profile import get_current_profile
+from src.spire.gamedata import FileParser, BottleRelic, KeysObtained, _enemies
 from src.webpage import router
-from src.logger import logger
-from src.events import invoke
-from src.utils import convert_class_to_obj, get_req_data
-from src.runs import get_latest_run, StreakInfo
-from src.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
+from src.util.logger import logger
+from src.util.events import invoke
+from src.util.utils import convert_class_to_obj, get_req_data
+from src.spire.runs import get_latest_run, StreakInfo
+from src.twitch.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
 
-import src.score as _s
+import src.spire.score as _s
 
-from src.config import config
+from src.util.config import config
 
 __all__ = ["get_savefile", "Savefile"]
 

@@ -4,8 +4,8 @@ This allows proper type hinting and autocomplete."""
 
 from __future__ import annotations
 
-from src.exceptions import InvalidConfigType
-from src.logger import logger
+from src.util.exceptions import InvalidConfigType
+from src.util.logger import logger
 
 class _ConfigMapping:
     def update(self, mapping: dict):

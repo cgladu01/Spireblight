@@ -1,4 +1,4 @@
-from src.sts_profile import Profile
+from src.spire.sts_profile import Profile
 
 
 class ProfilesResponse:

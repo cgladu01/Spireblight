@@ -10,10 +10,10 @@ import json
 import os
 import re
 
-from src.config import config
-from src.events import add_listener
-from src.utils import getfile
-from src.runs import get_parser, RunParser, _cache
+from src.util.config import config
+from src.util.events import add_listener
+from src.util.utils import getfile
+from src.spire.runs import get_parser, RunParser, _cache
 
 _date_re = re.compile(r"(\d\d\d\d\-\d\d\-\d\d)")
 _chapter_re = re.compile(r"^(\d\d?):(\d\d):(\d\d) Slay the Spire \- (\w+)$")

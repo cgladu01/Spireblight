@@ -4,10 +4,10 @@ from typing import Union, TypeAlias, Optional, TYPE_CHECKING
 from twitchio.ext.commands import Context as TContext
 from discord.ext.commands import Context as DContext
 
-from src.twitch import TwitchCommand
-from src.disc import DiscordCommand
+from src.twitch.twitch import TwitchCommand
+from src.discord.disc import DiscordCommand
 
-from src.nameinternal import Relic, Potion, SingleCard
+from src.spire.nameinternal import Relic, Potion, SingleCard
 
 __all__ = [
     "ContextType", "CommandType",

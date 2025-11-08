@@ -5,7 +5,7 @@ from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock, MagicMock
 
 from src import server
-from src.twitch import TwitchCommand
+from Twitch.twitch import TwitchCommand
 
 
 class Command:

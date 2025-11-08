@@ -2,9 +2,9 @@ from typing import Callable
 
 from twitchio.ext.commands import Command, Context
 
-from src.logger import logger
+from src.util.logger import logger
 
-from src.config import config
+from src.util.config import config
 
 __all__ = ["TwitchCommand"]
 

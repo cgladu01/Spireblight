@@ -1,7 +1,7 @@
 utils module
 ============
 
-.. automodule:: src.utils
+.. automodule:: src.util.utils
    :members:
    :show-inheritance:
    :undoc-members:

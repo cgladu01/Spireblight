@@ -1,7 +1,7 @@
 Handle configuration parsing
 ============================
 
-.. automodule:: src.config
+.. automodule:: src.util.config
    :members:
    :show-inheritance:
    :undoc-members:

@@ -4,10 +4,10 @@ from typing import TYPE_CHECKING
 
 from collections import Counter
 
-from src.nameinternal import get, ScoreBonus
+from src.spire.nameinternal import get, ScoreBonus
 
 if TYPE_CHECKING:
-    from src.save import Savefile
+    from src.spire.save import Savefile
 
 class Score:
     def __init__(self, name: str = "", count: int = 0, score: int = 0, should_show: bool = False):

@@ -9,12 +9,12 @@ from aiohttp import web, ClientSession
 import aiohttp_jinja2
 import jinja2
 
-from src.logger import logger
-from src.config import __author__, __github__, __version__
+from src.util.logger import logger
+from src.util.config import __author__, __github__, __version__
 
-from src import events
+from src.util import events
 
-from src.config import config
+from src.util.config import config
 
 __all__ = ["webpage", "router"]
 
@@ -119,7 +119,7 @@ async def challenge(req: web.Request):
 @aiohttp_jinja2.template("streaking.jinja2")
 async def streaking(req: web.Request):
     from src.cache.streaks import _streak_collections
-    from src.runs import _update_cache
+    from src.spire.runs import _update_cache
     _update_cache()
 
     return {

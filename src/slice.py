@@ -71,8 +71,8 @@ def get_runs() -> dict[str, CurrentRun]:
 
 try:
     from src.webpage import router
-    from src.events import add_listener
-    from src.utils import get_req_data
+    from src.util.events import add_listener
+    from src.util.utils import get_req_data
 except ModuleNotFoundError: # running as stand-alone module
     pass
 else:

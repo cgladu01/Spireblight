@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from datetime import datetime, UTC
 from typing import TYPE_CHECKING
-from src.logger import logger
+from src.util.logger import logger
 
 from src.cache.cache_helpers import StreakCache, StreakContainer
-from src.sts_profile import get_profile
+from src.spire.sts_profile import get_profile
 
 
 # TODO(olivia): Hard-coded to be the start of the Grandmastery challenge.  Move

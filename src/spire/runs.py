@@ -18,16 +18,16 @@ from src.cache.run_stats import update_all_run_stats
 from src.cache.cache_helpers import RunLinkedListNode
 from src.cache.mastered import update_mastery_stats
 from src.cache.streaks import update_streak_collections
-from src.sts_profile import get_profile
-from src.gamedata import FileParser, KeysObtained, _enemies
+from src.spire.sts_profile import get_profile
+from src.spire.gamedata import FileParser, KeysObtained, _enemies
 from src.webpage import router
-from src.logger import logger
-from src.events import add_listener
-from src.utils import convert_class_to_obj, get_req_data
-from src.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
+from src.util.logger import logger
+from src.util.events import add_listener
+from src.util.utils import convert_class_to_obj, get_req_data
+from src.twitch.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
 
 if TYPE_CHECKING:
-    from src.archive import VOD
+    from Twitch.archive import VOD
 
 __all__ = ["get_latest_run", "get_parser", "RunParser", "StreakInfo"]
 

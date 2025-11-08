@@ -1,4 +1,4 @@
-from src.events import add_listener
+from src.util.events import add_listener
 
 from src.monster.static import *
 from src.monster.server import *

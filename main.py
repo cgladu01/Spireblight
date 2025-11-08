@@ -6,18 +6,19 @@ import os
 
 from aiohttp import web
 
-import src.config
+import src.util.config
 
-# this will load the config into the src.config namespace
+# this will load the config into the src.util.config namespace
 # we do this here so that we can import the module without side-effects
 # this is important for testing and docgen
-src.config.load()
+src.util.config.load()
 
 from src.webpage import webpage
-from src.logger import logger
-from src.config import config, __version__
+from src.util.logger import logger
+from src.util.config import config, __version__
 
-from src import server, events
+from src.util import events
+from src import server
 
 if config.server.debug:
     logging.basicConfig(

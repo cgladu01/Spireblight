@@ -4,7 +4,7 @@ from pathlib import Path
 import logging
 
 from src import logger, config as _cfgmodule
-from src.exceptions import InvalidConfigType
+from util.exceptions import InvalidConfigType
 
 # this is where all the test files reside
 orig = Path.cwd() / "test" / "static"

@@ -1,7 +1,7 @@
 Slay the Spire path node data
 =============================
 
-.. module:: src.gamedata
+.. module:: src.spire.gamedata
 
 .. autoclass:: BaseNode
    :members:

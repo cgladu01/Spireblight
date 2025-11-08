@@ -1,7 +1,7 @@
 typehints module
 ================
 
-.. automodule:: src.typehints
+.. automodule:: src.spire.typehints
    :members:
    :show-inheritance:
    :undoc-members:
