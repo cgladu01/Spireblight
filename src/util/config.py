@@ -23,6 +23,8 @@ DEFAULT_DEV_CONFIG = {
         "oauth_token": "<token unset>"
     },
     "server": {"debug": False, "secret": "<i-haven't-set-a-secret>"},
+    "local_source": {"enabled": False, "location": r'C:\Program Files (x86)\Steam\steamapps\common\SlayTheSpire'},
+    "api_only" : {"enabled": False},
 }
 
 curpath: pathlib.Path = None
@@ -48,7 +50,7 @@ def load_default_config():
     if curpath is None:
         curpath = pathlib.Path(".")
     conf = None
-    for i in range(3):
+    for i in range(7):
         f = None
         try:
             f = (curpath / "default-config.yml").open()

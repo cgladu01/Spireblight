@@ -7,7 +7,7 @@ import time
 import math
 import os
 
-from aiohttp.web import Request, HTTPNotFound, HTTPFound, Response
+from aiohttp.web import Request, HTTPNotFound, HTTPFound, Response, HTTPClientError
 
 import aiohttp_jinja2
 
@@ -21,6 +21,7 @@ from src.util.events import invoke
 from src.util.utils import convert_class_to_obj, get_req_data
 from src.spire.runs import get_latest_run, StreakInfo
 from src.twitch.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
+from src.local.extract import Extract
 
 import src.spire.score as _s
 
@@ -29,6 +30,7 @@ from src.util.config import config
 __all__ = ["get_savefile", "Savefile"]
 
 _savefile = None
+extract: Extract = Extract()
 
 class Savefile(FileParser):
     """Hold data related to the ongoing run.
@@ -470,8 +472,10 @@ async def current_run(req: Request):
 
 @router.get("/current/raw")
 async def current_as_raw(req: Request):
+    await check_for_local()
     if _savefile.character is None:
-        raise HTTPNotFound()
+        if _savefile.character is None:
+            raise HTTPNotFound()
     return Response(text=json.dumps(_savefile._data, indent=4), content_type="application/json")
 
 @router.get("/current/{type}")
@@ -483,6 +487,8 @@ async def save_chart(req: Request) -> Response:
 
 @router.post("/sync/save")
 async def receive_save(req: Request):
+    if config.local_source.enabled:
+        raise HTTPClientError()
     content, name = await get_req_data(req, "savefile", "character")
 
     j = None
@@ -512,3 +518,35 @@ async def receive_save(req: Request):
 def get_savefile() -> Savefile:
     """Get the current savefile. Check for :meth:`Savefile.in_game` before using."""
     return _savefile
+
+async def check_for_local():
+    if config.local_source.enabled:
+        start = time.time()
+        if (start - _savefile._last > 1):
+            value = extract.fetch_save()
+            if value:
+                content = value["data"]["savefile"]
+                name = value["data"]["character"]
+            else:
+                return
+            j = None
+            if content:
+                decoded = base64.b64decode(content)
+                arr = bytearray()
+                for i, char in enumerate(decoded):
+                    arr.append(char ^ b"key"[i % 3])
+                j = json.loads(arr)
+                if "basemod:mod_saves" not in j: # make sure this key exists
+                    j["basemod:mod_saves"] = {}
+
+            in_run = _savefile.in_game
+            _savefile.update_data(j, name, "true")
+            if in_run and not _savefile.in_game:
+                run = get_latest_run(None, None)
+                await invoke("run_end", run)
+            with open(os.path.join("data", "spire-save.json"), "w") as f:
+                if j:
+                    json.dump(j, f, indent=config.server.json_indent)
+                else:
+                    f.write("{}")
+            logger.debug(f"Updated data. Final transaction time: {time.time() - float(start)}s")

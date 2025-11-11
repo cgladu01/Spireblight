@@ -55,7 +55,7 @@ class _ConfigMapping:
                     raise RuntimeError(f"Config has unsupported type {a.__class__.__name__!r} (this is a bug).")
 
 class Config(_ConfigMapping):
-    def __init__(self, twitch: dict, discord: dict, youtube: dict, bot: dict, server: dict, spotify: dict, **kwargs):
+    def __init__(self, twitch: dict, discord: dict, youtube: dict, bot: dict, server: dict, spotify: dict, local_source: dict, api_only: dict, **kwargs):
         """Hold all of the configuration data.
 
         :param twitch: A mapping to be passed to :class:`Twitch`.
@@ -78,6 +78,8 @@ class Config(_ConfigMapping):
         self.bot = Bot(**bot)
         self.server = Server(**server)
         self.spotify = Spotify(**spotify)
+        self.local_source = Local_source(**local_source)
+        self.api_only = API_only(**api_only)
 
         if kwargs:
             raise RuntimeError(f"Unrecognized config values: {', '.join(kwargs.keys())}")
@@ -357,3 +359,24 @@ class Spotify(_ConfigMapping):
         self.id = id
         self.secret = secret
         self.code = code # XXX: when we receive the code, immediately use it, don't store it
+
+class Local_source(_ConfigMapping):
+    def __init__(self, enabled: bool, location):
+        """Hold information for sourcing from local files.
+
+        :param enabled: Whether we are sourcing from local.
+        :type enabled: bool
+        :param location: location of spire on local.
+        :type location: str
+        """
+        self.enabled = enabled
+        self.location = location
+
+class API_only(_ConfigMapping):
+    def __init__(self, enabled: bool):
+        """Enable API only (no website)
+
+        :param enabled: Whether we are sourcing from local.F
+        :type enabled: bool
+        """
+        self.enabled = enabled

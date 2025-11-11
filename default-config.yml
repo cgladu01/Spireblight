@@ -158,3 +158,9 @@ spotify:
   # this code is a one-time use only. we then save the refresh token to disk and use that
   # this should be obtained by doing a GET request to /authorize
   code: <not set>
+
+local_source:
+  enabled: false
+  location: C:\Program Files (x86)\Steam\steamapps\common\SlayTheSpire
+api_only:
+  enabled: false
