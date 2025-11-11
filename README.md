@@ -1,5 +1,5 @@
 # Spireblight API fork
-This is meant as an update to the original[original repo](https://github.com/Spireblight/Spireblight/tree/main) to be able to source data from the local machine and have more API endpoints for a consumer to use. Please go support the original repo as this fork is pretty minimal in it's changes. 
+This is meant as an update to the [original repo](https://github.com/Spireblight/Spireblight/tree/main) to be able to source data from the local machine and have more API endpoints for a consumer to use. Please go support the original repo as this fork is pretty minimal in it's changes. 
 
 # TwitchCordBot
 
