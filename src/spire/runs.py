@@ -7,7 +7,8 @@ import json
 import time
 import os
 
-from aiohttp.web import Request, Response, HTTPNotFound, HTTPForbidden, HTTPNotImplemented
+
+from aiohttp.web import Request, Response, HTTPNotFound, HTTPForbidden, HTTPNotImplemented, HTTPInternalServerError
 
 import aiohttp_jinja2
 
@@ -25,6 +26,8 @@ from src.util.logger import logger
 from src.util.events import add_listener
 from src.util.utils import convert_class_to_obj, get_req_data
 from src.twitch.activemods import ActiveMods, ActiveMod, ACTIVEMODS_KEY
+from src.util.config import config
+from src.local.extract import Extract
 
 if TYPE_CHECKING:
     from Twitch.archive import VOD
@@ -415,3 +418,9 @@ async def receive_run(req: Request) -> Response:
     logger.debug(f"Received run history file. Updated data. Transaction time: {time.time() - float(req.query['start'])}s")
 
     return Response()
+
+@router.post("/update/runs")
+async def update_runs(req: Request):
+    status = Extract.fetch_runs()
+    _update_cache()
+    return HTTPOk if status else HTTPInternalServerError

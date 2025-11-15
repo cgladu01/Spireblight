@@ -8,6 +8,7 @@ import time
 import yaml
 import os
 from src.util.config import config
+import shutil
 
 '''
 This file serves to fetch save file from local machine for server to use.
@@ -49,18 +50,19 @@ class Extract:
             "params" : {"start": time.time()}
         }
 
-    def fetch_runs(self):
+    def fetch_runs():
+        if not config.local_source.enabled:
+            return
+        
         charcterDirects = []
         for file in os.listdir(os.path.join(os.sep, config.local_source.location + os.sep, "runs")):
             try:
-                if file.endswith("DAILY"): #We don't want daily runs
+                if file.endswith("DAILY"): #We don't want daily runs I mean at least I dont
                     continue
-                charcterDirects.append[file]
-            except:
-                print("Cannot find runs directory")
-                return None
+                charcterDirects.append(file)
+            except Exception as e:
+                print("Cannot find runs directory as error : " , repr(e))
+                return
 
         for character in charcterDirects:
-            for file in os.listdir(os.path.join(os.sep, config.local_source.location + os.sep, "runs", os.sep, character)):
-                continue
-            
+            shutil.copytree(os.path.join(os.sep, config.local_source.location + os.sep, "runs", character), os.path.join(os.getcwd(), "data", "runs", "0"), copy_function=shutil.copy, dirs_exist_ok=True)
