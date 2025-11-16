@@ -128,6 +128,42 @@ async def runs_page(req: Request):
         "pages": profile.pages,
     }
 
+@router.get("/profile/{profile}/runs/raw")
+@router.get("/profile/{profile}/runs/{page}/raw")
+async def runs_page_raw(req: Request):
+    profile = profile_from_request(req)
+
+    from src.spire.runs import _update_cache
+    from src.local.extract import Extract
+    Extract.fetch_runs()
+    _update_cache()
+
+    try:
+        page = int(req.match_info.get("page", 1))
+    except:
+        page = 0
+
+    from src.spire.runs import _cache
+    runs = []
+
+    for (_, v) in _cache.items():
+        if v._profile == profile.index:
+            runs.append({
+                "name" : v.name,
+                "character" : v.character,
+                "result" : v.verb,
+                "score" : v.score,
+                "time" : str(v.timestamp),
+                "floor_reached" : v.floor_reached
+            }
+        )
+
+    return Response(text=json.dumps({
+        "page" : page,
+        "pages" : profile.pages,
+        "runs" : runs[slice(profile.RUNS_PER_PAGE * page, profile.RUNS_PER_PAGE * (page + 1))]},
+        indent=4), content_type="application/json")
+
 @router.get("/profile/{profile}/runs/by-timestamp/{timestamp}")
 @aiohttp_jinja2.template("runs_timestamp.jinja2")
 async def runs_by_timestamp(req: Request):

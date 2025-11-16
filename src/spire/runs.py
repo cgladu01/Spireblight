@@ -427,12 +427,3 @@ async def update_runs(req: Request):
     if status:
         last_update = datetime.datetime.now()
     return HTTPOk if status else HTTPInternalServerError
-
-@router.post("/runs/raw")
-async def update_runs(req: Request):
-    # Update runs every 24 hours when asked
-    if last_update < datetime.datetime.now() - datetime.timedelta(days=1):
-        status = Extract.fetch_runs()
-        _update_cache()
-    
-    return Response()

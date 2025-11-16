@@ -52,7 +52,7 @@ class Extract:
 
     def fetch_runs():
         if not config.local_source.enabled:
-            return
+            return False
         
         charcterDirects = []
         for file in os.listdir(os.path.join(os.sep, config.local_source.location + os.sep, "runs")):
@@ -62,7 +62,7 @@ class Extract:
                 charcterDirects.append(file)
             except Exception as e:
                 print("Cannot find runs directory as error : " , repr(e))
-                return
+                return False
 
         for character in charcterDirects:
             shutil.copytree(os.path.join(os.sep, config.local_source.location + os.sep, "runs", character), os.path.join(os.getcwd(), "data", "runs", "0"), copy_function=shutil.copy, dirs_exist_ok=True)
