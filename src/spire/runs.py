@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from Twitch.archive import VOD
 
 __all__ = ["get_latest_run", "get_parser", "RunParser", "StreakInfo"]
+last_update = datetime.datetime.now()
 
 _cache: dict[str, RunParser] = {}
 _ts_cache: dict[int, RunParser] = {}
@@ -423,4 +424,15 @@ async def receive_run(req: Request) -> Response:
 async def update_runs(req: Request):
     status = Extract.fetch_runs()
     _update_cache()
+    if status:
+        last_update = datetime.datetime.now()
     return HTTPOk if status else HTTPInternalServerError
+
+@router.post("/runs/raw")
+async def update_runs(req: Request):
+    # Update runs every 24 hours when asked
+    if last_update < datetime.datetime.now() - datetime.timedelta(days=1):
+        status = Extract.fetch_runs()
+        _update_cache()
+    
+    return Response()
